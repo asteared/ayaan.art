@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ayaan's Art Gallery</title>
+  <title>Ayaan Goddard Art Gallery</title>
 
   <!-- SEO & Canonical Settings for Ayaan.art -->
   <meta name="description" content="A curated online collection of artwork, paintings, and creative projects by Ayaan.">
@@ -12,7 +12,7 @@
   <!-- Open Graph / Social Media Preview Tags -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://ayaan.art/">
-  <meta property="og:title" content="Ayaan Art Gallery">
+  <meta property="og:title" content="Ayaan Goddard Art Gallery">
   <meta property="og:description" content="A curated online collection of artwork, paintings, and creative projects by Ayaan.">
   <meta property="og:image" content="./artwork-1.jpg">
 
@@ -58,7 +58,7 @@
     header p {
       color: var(--text-muted);
       font-size: 1.15rem;
-      max-width: 600px;
+      max-width: 800px; /* Expanded so text fits on one line */
       margin: 0 auto;
     }
 
@@ -107,6 +107,7 @@
 
       header p {
         font-size: 0.95rem;
+        max-width: 100%;
       }
 
       /* 2-column compact grid on phones */
@@ -121,7 +122,7 @@
       }
 
       .art-card img {
-        height: 160px; /* Reduced thumbnail height for mobile */
+        height: 160px; /* Smaller thumbnail height for mobile */
       }
 
       .lightbox-btn {
@@ -259,7 +260,7 @@
     const TOTAL_IMAGES = 162;
     const galleryGrid = document.getElementById('galleryGrid');
 
-    // 1. Generate 162 cards dynamically showing only the images
+    // 1. Generate 162 cards dynamically
     for (let i = 1; i <= TOTAL_IMAGES; i++) {
       const card = document.createElement('div');
       card.className = 'art-card';
