@@ -4,70 +4,211 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ayaan Goddard Art Gallery</title>
+
+  <!-- SEO & Canonical Settings for Ayaan.art -->
+  <meta name="description" content="A curated online collection of artwork, paintings, and creative projects by Ayaan.">
+  <link rel="canonical" href="https://ayaan.art/">
+
+  <!-- Open Graph / Social Media Preview Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ayaan.art/">
+  <meta property="og:title" content="Ayaan Goddard Art Gallery">
+  <meta property="og:description" content="A curated online collection of artwork, paintings, and creative projects by Ayaan.">
+  <meta property="og:image" content="./artwork-1.jpg">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>">
+
   <style>
     :root {
-      --bg: #fafafa;
-      --card-bg: #ffffff;
-      --text: #222222;
-      --accent: #4a90e2;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
     }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
     header {
       text-align: center;
-      padding: 3rem 1rem 1.5rem;
+      padding: 3.5rem 1.5rem 2rem;
     }
+
     header h1 {
-      font-size: 2.5rem;
-      margin: 0 0 0.5rem;
+      font-size: 2.75rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      margin-bottom: 0.5rem;
     }
+
     header p {
-      color: #666;
-      font-size: 1.1rem;
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      max-width: 600px;
+      margin: 0 auto;
     }
+
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-      max-width: 1200px;
+      gap: 1.75rem;
+      max-width: 1280px;
+      width: 100%;
       margin: 0 auto;
       padding: 1.5rem;
+      flex: 1;
     }
+
     .art-card {
       background: var(--card-bg);
-      border-radius: 12px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
       cursor: pointer;
+      display: flex;
+      flex-direction: column;
     }
+
     .art-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.5);
     }
+
     .art-card img {
       width: 100%;
-      height: 260px;
+      height: 280px;
       object-fit: cover;
       display: block;
     }
+
     .art-info {
-      padding: 1rem;
+      padding: 1.25rem;
     }
+
     .art-info h3 {
-      margin: 0 0 0.25rem;
       font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
     }
+
+    .art-info p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    /* --- Lightbox Modal --- */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background-color: rgba(3, 7, 18, 0.92);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .lightbox-content img {
+      max-width: 90vw;
+      max-height: 70vh;
+      object-fit: contain;
+      border-radius: 8px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+
+    .lightbox-caption {
+      margin-top: 1.25rem;
+      text-align: center;
+    }
+
+    .lightbox-caption h3 {
+      font-size: 1.35rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .lightbox-caption p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Lightbox Controls */
+    .lightbox-btn {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      font-size: 1.75rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, transform 0.2s ease;
+      user-select: none;
+    }
+
+    .lightbox-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.05);
+    }
+
+    .close-btn {
+      top: 20px;
+      right: 25px;
+    }
+
+    .prev-btn {
+      left: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .next-btn {
+      right: 25px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
     footer {
       text-align: center;
-      padding: 2rem;
-      color: #888;
+      padding: 2.5rem 1rem;
+      color: var(--text-muted);
       font-size: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
   </style>
 </head>
@@ -75,28 +216,116 @@
 
   <header>
     <h1>Ayaan Goddard Art</h1>
-    <p>A collection of artwork, paintings, and creative projects by Ayaan.</p>
+    <p>A curated online collection of artwork, paintings, and creative projects by Ayaan.</p>
   </header>
 
-  <main class="gallery-grid">
-    <!-- Replace src paths with your actual photo filenames -->
-    <div class="art-card">
-      <img src="artwork-01.jpg" alt="Painting project">
-      <div class="art-info">
-        <h3>Colorful Abstract Painting</h3>
-      </div>
-    </div>
-    <div class="art-card">
-      <img src="artwork-02.jpg" alt="School project">
-      <div class="art-info">
-        <h3>Goddard School Artwork</h3>
-      </div>
-    </div>
-  </main>
+  <!-- Container where JavaScript populates all 162 cards -->
+  <main class="gallery-grid" id="galleryGrid"></main>
 
   <footer>
     &copy; Ayaan.art — All Rights Reserved
   </footer>
 
+  <!-- Lightbox Container -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-btn close-btn" id="closeBtn" aria-label="Close">&times;</button>
+    <button class="lightbox-btn prev-btn" id="prevBtn" aria-label="Previous">&#10094;</button>
+    <button class="lightbox-btn next-btn" id="nextBtn" aria-label="Next">&#10095;</button>
+    
+    <div class="lightbox-content">
+      <img id="lightboxImg" src="" alt="">
+      <div class="lightbox-caption">
+        <h3 id="lightboxTitle"></h3>
+        <p id="lightboxDesc"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const TOTAL_IMAGES = 162;
+    const galleryGrid = document.getElementById('galleryGrid');
+
+    // 1. Generate 162 cards dynamically assuming filenames artwork-1.jpg through artwork-162.jpg
+    for (let i = 1; i <= TOTAL_IMAGES; i++) {
+      const card = document.createElement('div');
+      card.className = 'art-card';
+      card.setAttribute('data-title', `Artwork #${i}`);
+      card.setAttribute('data-desc', `Goddard School Project`);
+
+      card.innerHTML = `
+        <img src="./artwork-${i}.jpg" alt="Ayaan Artwork #${i}" loading="lazy">
+        <div class="art-info">
+          <h3>Artwork #${i}</h3>
+          <p>Goddard School Collection</p>
+        </div>
+      `;
+
+      galleryGrid.appendChild(card);
+    }
+
+    // 2. Setup Interactive Lightbox
+    const cards = Array.from(document.querySelectorAll('.art-card'));
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxDesc = document.getElementById('lightboxDesc');
+    const closeBtn = document.getElementById('closeBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let currentIndex = 0;
+
+    function openLightbox(index) {
+      currentIndex = index;
+      const card = cards[currentIndex];
+      const img = card.querySelector('img');
+      const title = card.getAttribute('data-title') || img.alt;
+      const desc = card.getAttribute('data-desc') || '';
+
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightboxTitle.textContent = title;
+      lightboxDesc.textContent = desc;
+
+      lightbox.classList.add('active');
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+    }
+
+    function showPrev() {
+      currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+      openLightbox(currentIndex);
+    }
+
+    function showNext() {
+      currentIndex = (currentIndex + 1) % cards.length;
+      openLightbox(currentIndex);
+    }
+
+    // Event Listeners
+    cards.forEach((card, index) => {
+      card.addEventListener('click', () => openLightbox(index));
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+    prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
+    nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
+        closeLightbox();
+      }
+    });
+
+    // Keyboard Navigation
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
+    });
+  </script>
 </body>
 </html>
