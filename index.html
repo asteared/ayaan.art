@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayaan Goddard Art Gallery</title>
+  <style>
+    :root {
+      --bg: #fafafa;
+      --card-bg: #ffffff;
+      --text: #222222;
+      --accent: #4a90e2;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      text-align: center;
+      padding: 3rem 1rem 1.5rem;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0 0 0.5rem;
+    }
+    header p {
+      color: #666;
+      font-size: 1.1rem;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+    .art-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+    .art-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+    .art-card img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      display: block;
+    }
+    .art-info {
+      padding: 1rem;
+    }
+    .art-info h3 {
+      margin: 0 0 0.25rem;
+      font-size: 1.1rem;
+    }
+    footer {
+      text-align: center;
+      padding: 2rem;
+      color: #888;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Ayaan Goddard Art</h1>
+    <p>A collection of artwork, paintings, and creative projects by Ayaan.</p>
+  </header>
+
+  <main class="gallery-grid">
+    <!-- Replace src paths with your actual photo filenames -->
+    <div class="art-card">
+      <img src="artwork-01.jpg" alt="Painting project">
+      <div class="art-info">
+        <h3>Colorful Abstract Painting</h3>
+      </div>
+    </div>
+    <div class="art-card">
+      <img src="artwork-02.jpg" alt="School project">
+      <div class="art-info">
+        <h3>Goddard School Artwork</h3>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; Ayaan.art — All Rights Reserved
+  </footer>
+
+</body>
+</html>
