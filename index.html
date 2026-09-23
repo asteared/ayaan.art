@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ayaan Art Gallery</title>
+  <title>Ayaan Goddard Art Gallery</title>
 
   <!-- SEO & Canonical Settings for Ayaan.art -->
-  <meta name="description" content="A curated collection of artwork, paintings, and creative projects by Ayaan.">
+  <meta name="description" content="A curated online collection of artwork, paintings, and creative projects by Ayaan.">
   <link rel="canonical" href="https://ayaan.art/">
 
   <!-- Open Graph / Social Media Preview Tags -->
@@ -80,8 +80,6 @@
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
       transition: transform 0.25s ease, box-shadow 0.25s ease;
       cursor: pointer;
-      display: flex;
-      flex-direction: column;
     }
 
     .art-card:hover {
@@ -91,19 +89,9 @@
 
     .art-card img {
       width: 100%;
-      height: 280px;
+      height: 320px;
       object-fit: cover;
       display: block;
-    }
-
-    .art-info {
-      padding: 1.25rem;
-      text-align: center;
-    }
-
-    .art-info h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
     }
 
     /* --- Lightbox Modal --- */
@@ -112,11 +100,10 @@
       position: fixed;
       inset: 0;
       z-index: 1000;
-      background-color: rgba(3, 7, 18, 0.92);
+      background-color: rgba(3, 7, 18, 0.94);
       backdrop-filter: blur(8px);
       align-items: center;
       justify-content: center;
-      flex-direction: column;
       opacity: 0;
       transition: opacity 0.25s ease;
     }
@@ -129,27 +116,18 @@
     .lightbox-content {
       position: relative;
       max-width: 90vw;
-      max-height: 80vh;
+      max-height: 85vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
+      justify-content: center;
     }
 
     .lightbox-content img {
       max-width: 90vw;
-      max-height: 70vh;
+      max-height: 85vh;
       object-fit: contain;
       border-radius: 8px;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
-    }
-
-    .lightbox-caption {
-      margin-top: 1.25rem;
-      text-align: center;
-    }
-
-    .lightbox-caption h3 {
-      font-size: 1.35rem;
     }
 
     /* Lightbox Controls */
@@ -208,7 +186,7 @@
     <p>A curated online collection of artwork, paintings, and creative projects by Ayaan.</p>
   </header>
 
-  <!-- Container where JavaScript populates all 162 cards -->
+  <!-- Container where JavaScript populates all 162 image cards -->
   <main class="gallery-grid" id="galleryGrid"></main>
 
   <footer>
@@ -222,10 +200,7 @@
     <button class="lightbox-btn next-btn" id="nextBtn" aria-label="Next">&#10095;</button>
     
     <div class="lightbox-content">
-      <img id="lightboxImg" src="" alt="">
-      <div class="lightbox-caption">
-        <h3 id="lightboxTitle"></h3>
-      </div>
+      <img id="lightboxImg" src="" alt="Ayaan Artwork">
     </div>
   </div>
 
@@ -233,17 +208,13 @@
     const TOTAL_IMAGES = 162;
     const galleryGrid = document.getElementById('galleryGrid');
 
-    // 1. Generate 162 cards dynamically without descriptions
+    // 1. Generate 162 cards dynamically showing only the images
     for (let i = 1; i <= TOTAL_IMAGES; i++) {
       const card = document.createElement('div');
       card.className = 'art-card';
-      card.setAttribute('data-title', `Artwork #${i}`);
 
       card.innerHTML = `
-        <img src="./artwork-${i}.jpg" alt="Ayaan Artwork #${i}" loading="lazy">
-        <div class="art-info">
-          <h3>Artwork #${i}</h3>
-        </div>
+        <img src="./artwork-${i}.jpg" alt="Ayaan Artwork" loading="lazy">
       `;
 
       galleryGrid.appendChild(card);
@@ -253,7 +224,6 @@
     const cards = Array.from(document.querySelectorAll('.art-card'));
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImg');
-    const lightboxTitle = document.getElementById('lightboxTitle');
     const closeBtn = document.getElementById('closeBtn');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
@@ -264,12 +234,8 @@
       currentIndex = index;
       const card = cards[currentIndex];
       const img = card.querySelector('img');
-      const title = card.getAttribute('data-title') || img.alt;
 
       lightboxImg.src = img.src;
-      lightboxImg.alt = img.alt;
-      lightboxTitle.textContent = title;
-
       lightbox.classList.add('active');
     }
 
