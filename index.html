@@ -98,17 +98,12 @@
 
     .art-info {
       padding: 1.25rem;
+      text-align: center;
     }
 
     .art-info h3 {
       font-size: 1.1rem;
       font-weight: 600;
-      margin-bottom: 0.25rem;
-    }
-
-    .art-info p {
-      font-size: 0.875rem;
-      color: var(--text-muted);
     }
 
     /* --- Lightbox Modal --- */
@@ -155,12 +150,6 @@
 
     .lightbox-caption h3 {
       font-size: 1.35rem;
-      margin-bottom: 0.25rem;
-    }
-
-    .lightbox-caption p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
     }
 
     /* Lightbox Controls */
@@ -236,7 +225,6 @@
       <img id="lightboxImg" src="" alt="">
       <div class="lightbox-caption">
         <h3 id="lightboxTitle"></h3>
-        <p id="lightboxDesc"></p>
       </div>
     </div>
   </div>
@@ -245,18 +233,16 @@
     const TOTAL_IMAGES = 162;
     const galleryGrid = document.getElementById('galleryGrid');
 
-    // 1. Generate 162 cards dynamically assuming filenames artwork-1.jpg through artwork-162.jpg
+    // 1. Generate 162 cards dynamically without descriptions
     for (let i = 1; i <= TOTAL_IMAGES; i++) {
       const card = document.createElement('div');
       card.className = 'art-card';
       card.setAttribute('data-title', `Artwork #${i}`);
-      card.setAttribute('data-desc', `Goddard School Project`);
 
       card.innerHTML = `
         <img src="./artwork-${i}.jpg" alt="Ayaan Artwork #${i}" loading="lazy">
         <div class="art-info">
           <h3>Artwork #${i}</h3>
-          <p>Goddard School Collection</p>
         </div>
       `;
 
@@ -268,7 +254,6 @@
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImg');
     const lightboxTitle = document.getElementById('lightboxTitle');
-    const lightboxDesc = document.getElementById('lightboxDesc');
     const closeBtn = document.getElementById('closeBtn');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
@@ -280,12 +265,10 @@
       const card = cards[currentIndex];
       const img = card.querySelector('img');
       const title = card.getAttribute('data-title') || img.alt;
-      const desc = card.getAttribute('data-desc') || '';
 
       lightboxImg.src = img.src;
       lightboxImg.alt = img.alt;
       lightboxTitle.textContent = title;
-      lightboxDesc.textContent = desc;
 
       lightbox.classList.add('active');
     }
